@@ -38,7 +38,7 @@ const convert3 = document.querySelector('.convert3');
 const reset3 = document.querySelector('.reset3');
 
 convert3.addEventListener('click', function(){
-    let ans = meter1.value * 3.281;
+    let ans = meter1.value * 3.28;
     feet1.innerText = Math.round(ans * 100) / 100;
 })
 
@@ -54,7 +54,7 @@ const convert4 = document.querySelector('.convert4');
 const reset4 = document.querySelector('.reset4');
 
 convert4.addEventListener('click', function(){
-    let ans = feet2.value / 3.281;
+    let ans = feet2.value / 3.28;
     meter2.innerText = Math.round(ans * 100) / 100;
 })
 
