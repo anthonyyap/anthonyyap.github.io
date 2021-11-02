@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Computations</title>
+    <link rel="stylesheet" href="./simpleComputations.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Simple Computations</h1>
+        <p>(Everything rounds to 2 decimal places)</p>
+    
+        <div class="box">
+            <h3>Fahrenheit to Celsius</h3>
+            <div class="f2c">
+                <label for="fah"></label>
+                <input type="text" class="fah" placeholder="Enter Fahrenheit">
+                <span>=</span>
+                <p class="cels">0</p>
+            </div>
+            <div class="btns">
+                <button class='convert greenBtn'>Convert</button>
+                <button class='reset redBtn'>Reset</button>
+            </div>
+        </div>
+
+        <div class="box">
+            <h3>Celsius to Fahrenheit</h3>
+            <div class="c2f">
+                <label for="cels2"></label>
+                <input type="text" class="cels2" placeholder="Enter Celsius">
+                <span>=</span>
+                <p class="fah2">0</p>
+            </div>
+            <div class="btns">
+                <button class='convert2 greenBtn'>Convert</button>
+                <button class='reset2 redBtn'>Reset</button>
+            </div>
+        </div>
+
+        <div class="box">
+            <h3>Meters to Feet</h3>
+            <div class="m2f">
+                <label for="meterInput"></label>
+                <input type="text" class="meterInput" placeholder="Enter Meters">
+                <span>=</span>
+                <p class="feet1">0</p>
+            </div>
+            <div class="btns">
+                <button class='convert3 greenBtn'>Convert</button>
+                <button class='reset3 redBtn'>Reset</button>
+            </div>
+        </div>
+
+        <div class="box">
+            <h3>Feet to Meters</h3>
+            <div class="f2m">
+                <label for="feetInput"></label>
+                <input type="text" class="feetInput" placeholder="Enter Feet">
+                <span>=</span>
+                <p class="meter2">0</p>
+            </div>
+            <div class="btns">
+                <button class='convert4 greenBtn'>Convert</button>
+                <button class='reset4 redBtn'>Reset</button>
+            </div>
+        </div>
+
+        <a href="./home.html" class="home">Back to home</a>
+    </div>
+
+    <script src="./simpleComputations.js"></script>
+</body>
+</html>
