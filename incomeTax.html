@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income Tax Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .inner-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            background-color: #ade8f4;
+            height: 50vh;
+            width: 50vw;
+            border-radius: 40px;
+        }
+
+        input {
+            padding: 5px;
+            font-size: 20px;
+            outline: none;
+            margin-bottom: 30px;
+            border: none;
+        }
+        .inputOutput p {
+            font-size: 20px;
+        }
+
+        .incomeTax {
+            font-weight: 600;
+            font-size: 24px;
+        }
+
+        .home {
+            text-decoration: none;
+            background-color: rgb(53, 144, 248);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 40px;
+            font-size: 20px;
+            position: absolute;
+            top: 67vh;
+            right: 26vw;
+        }
+
+    </style>
+</head>
+    <!-- HTML here -->
+<body>
+    <div class="container">
+        <div class="inner-container">
+            <h1>Income Tax Calculator</h2>
+            <div class="inputOutput">
+                <label for="taxableIncome"></label>
+                <input type="text" placeholder="Enter Taxable Income" id="taxableIncome">
+                <p>Your Income Tax is: <span class="incomeTax"></span></p>
+            </div>
+            <a href="./index.html" class="home">Back to home</a>
+        </div>
+    </div>
+
+
+    <!-- Javascript code -->
+    <script>
+        let input = document.querySelector('#taxableIncome');
+        let result = document.querySelector('.incomeTax');
+
+        let ans;
+
+        input.addEventListener('keyup', function(){
+            if (input.value <= 250000) {
+                ans = 0;
+            }
+            else if ((input.value > 250000) && (input.value <= 400000)) {
+                ans = (input.value - 250000) * .2;
+            }
+            else if ((input.value > 400000) && (input.value <= 800000)) {
+                ans = ((input.value - 400000) * .25) + 30000
+            }
+            else if ((input.value > 800000) && (input.value <= 2000000)) {
+                ans = ((input.value - 800000) * .3) + 130000
+            }
+            else if ((input.value > 2000000) && (input.value <= 8000000)) {
+                ans = ((input.value - 2000000) * .32) + 490000
+            }
+            else if (input.value > 8000000) {
+                ans = ((input.value - 8000000) * .35) + 2410000
+            }
+            result.innerText = "\n" + ans;
+        })
+    </script>
+</body>
+</html>
