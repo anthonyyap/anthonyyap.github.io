@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Name: Anthony Dexter Yap -->
+    <!-- Class code: 4-301 -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Payroll</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            width: 100vw;
+            flex-direction: column;
+        }
+
+        .inner-container {
+            text-align: center;
+            background-color: rgb(188, 238, 255);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .inputs {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        input {
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            font-size: 18px;
+            /* background-color: transparent;
+            border-bottom: 1px solid black; */
+            font-weight: 500;
+            padding: 5px;
+        }
+
+        .inputs div, .inputs button, .inputs p {
+            margin: 10px;
+        }
+
+        button {
+            font-size: 18px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover{ 
+            cursor: pointer;
+        }
+
+        .del {
+            background-color: rgb(245, 141, 141);
+        }
+
+        .add {
+            background-color: rgb(144, 238, 144);
+        }
+
+        .reset {
+            background-color: #f0ad4e;
+        }
+
+        #del {
+            font-weight: normal;
+        }
+
+        .content-table {
+            margin: 25px 0;
+        }
+
+        th {
+            padding-right: 30px;
+        }
+
+        .tbody td {
+            padding-right: 30px;
+            text-align: center;
+        }
+
+        .tfoot td {
+            text-align: center;
+            font-weight: 600;
+            padding-right: 30px;
+        }
+
+        .home {
+            text-decoration: none;
+            background-color: rgb(53, 144, 248);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 40px;
+            font-size: 20px;
+            position: fixed;
+            top: 90vh;
+            right: 5vw;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="inner-container">
+            <h1>Simple Payroll</h1>
+
+            <div class="inputs">
+                <div class="name">
+                    <label for="name">Employee Name: </label>
+                    <input type="text" id="name">
+                </div>
+
+                <div class="days">
+                    <label for="daysWorked">Days Worked: </label>
+                    <input type="text" id="daysWorked">
+                </div>
+
+                <div class="rate">
+                    <label for="rate">Daily Rate: </label>
+                    <input type="text" id="rate">
+                </div>
+
+                <div class="deduct">
+                    <label for="deduction">Deduction Amount: </label>
+                    <input type="text" id="deduction">
+                </div>
+
+                <button class='add'>Add Employee</button>
+                <p>No. of Employees: <span class='totalEmployees'>0</span></p>
+                
+                <div class="del-employee">
+                    <label for="del">Delete Employee: </label>
+                    <input type="text" id="del" placeholder="Enter a number">
+                    <button class="del">Delete</button>
+                </div>
+                <button class="reset">Clear Payroll</button>
+            </div>
+        </div>
+        <div class="table">
+            <table class="content-table">
+                <thead>
+                    <tr class="table-header">
+                        <th>No.</th>
+                        <th>Employee Name</th>
+                        <th>Days Worked</th>
+                        <th>Daily Rate</th>
+                        <th>Gross Pay</th>
+                        <th>Deduction Amount</th>
+                        <th>Net Pay</th>
+                    </tr>
+                </thead>
+                <tbody class="tbody"></tbody>
+                <tfoot>
+                    <tr class="tfoot">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class='totalGross'></td>
+                        <td class='totalDeduction'></td>
+                        <td class='totalNetPay'></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <a href="./index.html" class="home">Back to home</a>
+
+
+    <script>
+        const employeeName = document.querySelector('#name');
+        const daysWorked = document.querySelector('#daysWorked');
+        const rate = document.querySelector('#rate');
+        const deduction = document.querySelector('#deduction');
+
+        const addBtn = document.querySelector('.add');
+
+        const totalEmployees = document.querySelector('.totalEmployees');
+
+        const del = document.querySelector('#del');
+        const delBtn = document.querySelector('.del');
+
+        const resetBtn = document.querySelector('.reset');
+
+        const tbody = document.querySelector('.tbody');
+
+        const totalGrossPay = document.querySelector('.totalGross');
+        const totalDeduction = document.querySelector('.totalDeduction')
+        const totalNetPay = document.querySelector('.totalNetPay')
+
+        //add employee
+        let numberOfEmployees = 0;
+        let gross = 0;
+        let deduct = 0;
+        let net = 0;
+        addBtn.addEventListener('click', function() {
+            //creates new row
+            let newRow = document.createElement('tr');
+            tbody.appendChild(newRow);
+            //assigns a number for the new employee
+            numberOfEmployees++;
+            let newEmployee = document.createElement('td');
+            newEmployee.innerText = numberOfEmployees; 
+            newRow.appendChild(newEmployee);
+            //adds name to table
+            let insertName = document.createElement('td');
+            insertName.innerText = employeeName.value;
+            newRow.appendChild(insertName);
+            //adds days worked
+            let insertDays = document.createElement('td');
+            insertDays.innerText = daysWorked.value;
+            newRow.appendChild(insertDays);
+            //adds daily rate
+            let insertRate = document.createElement('td');
+            insertRate.innerText = rate.value;
+            newRow.appendChild(insertRate);
+            //adds gross pay
+            let insertGrossPay = document.createElement('td');
+            insertGrossPay.innerText = daysWorked.value * rate.value;
+            newRow.appendChild(insertGrossPay);
+            gross += daysWorked.value * rate.value;
+            totalGrossPay.innerText = gross;
+            //adds the deduction
+            let insertDeduction = document.createElement('td');
+            insertDeduction.innerText = deduction.value;
+            newRow.appendChild(insertDeduction);
+            deduct += parseFloat(deduction.value);
+            totalDeduction.innerText = deduct;
+            //adds net pay
+            let insertNetPay = document.createElement('td');
+            insertNetPay.innerText = (daysWorked.value * rate.value) - deduction.value;
+            newRow.appendChild(insertNetPay);
+            net += (daysWorked.value * rate.value) - deduction.value;
+            totalNetPay.innerText = net;
+        })
+
+        //delete employee
+        const delEmp = document.querySelector('td');
+        delBtn.addEventListener('click', function() {
+            //this part updates the totals
+            let child = tbody.children[parseInt(del.value)-1];
+            gross -= parseFloat(child.children[4].innerText);
+            totalGrossPay.innerText = gross;
+            deduct -= parseFloat(child.children[5].innerText);
+            totalDeduction.innerText = deduct;
+            net -= parseFloat(child.children[6].innerText);
+            totalNetPay.innerText = net;
+
+            //this part removes the specified employee
+            tbody.children[parseInt(del.value)-1].remove();
+        })
+
+        //reset everything
+        resetBtn.addEventListener('click', function() {
+            numberOfEmployees = 0;
+            gross = 0;
+            deduct = 0;
+            net = 0;
+            totalGrossPay.innerText = '';
+            totalDeduction.innerText = '';
+            totalNetPay.innerText = '';
+            while (tbody.childNodes.length > 0) {
+                tbody.childNodes[0].remove();
+            }
+        })
+
+    </script>
+</body>
+</html>
